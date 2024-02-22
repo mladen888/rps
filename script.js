@@ -14,38 +14,41 @@ function getComputerChoice() {
 
 function getPlayersChoice() {
     let input = prompt("Unesi Rock, Paper, ili Scissors");
-    while (input === null || !['rock', 'paper', 'scissors'].includes(input.toLowerCase())) {
-        input = prompt("Unesi: Rock, Paper, ili Scissors");
+    while (input === null || !['rock', 'paper', 'scissors'].includes(input.toLowerCase())) {   //gugl
+        input = prompt('Potrebno je uneti: rock paper ili scissors');
     }
     return input.toLowerCase();
 }
 
-const computerSelection = getComputerChoice();
-const playersChoice = getPlayersChoice();
-let winCount =0
-let brojPartija =0
-function playRound(computerSelection, playersChoice, winCount) {
+function playRound(computerSelection, playersChoice) {
    
         if (computerSelection === playersChoice) {
-            brojPartija ++;
             return 'Nereseno';
         } else if (
             (computerSelection === 'rock' && playersChoice === 'scissors') ||
             (computerSelection === 'paper' && playersChoice === 'rock') ||
             (computerSelection === 'scissors' && playersChoice === 'paper')
         ) {
-            brojPartija ++;
             return 'Izgubio si';
         } else {
-            brojPartija ++;
             winCount++;
             return 'Pobedio si';
         }
     }
     
+let winCount = 0;
 
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        const computerSelection = getComputerChoice();
+        const playersChoice = getPlayersChoice();
+        const result = playRound(computerSelection, playersChoice);
+        console.log("Runda", i+1, "- Komp:", computerSelection, "- Plejer:", playersChoice, "- Rezultat:", result);  //gugl
+        if (result === 'Pobedio si') {
+            winCount++;
+        }
+    }
+    console.log("Ukupan rezultat:", winCount >= 3 ? 'Pobedio si!' : 'Izgubio si!');
+}
 
-console.log("Komp:", computerSelection);
-console.log("Plejer:", playersChoice);
-console.log(playRound(computerSelection, playersChoice));
-
+playGame();
